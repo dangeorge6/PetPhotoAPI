@@ -1,0 +1,24 @@
+{
+    "relationships": [
+        {
+            "relationshipName": "vote",
+            "otherEntityName": "vote",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "client"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "username",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20160809174458",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "client",
+    "pagination": "no"
+}
