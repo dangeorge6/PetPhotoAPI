@@ -1,0 +1,30 @@
+{
+    "relationships": [
+        {
+            "relationshipName": "dogPhoto",
+            "otherEntityName": "dogPhoto",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "client",
+            "otherEntityName": "client",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "isUp",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20160809174202",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "vote",
+    "pagination": "no"
+}

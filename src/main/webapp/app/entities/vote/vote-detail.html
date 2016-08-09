@@ -1,0 +1,31 @@
+
+<div>
+    <h2><span>Vote</span> {{vm.vote.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Is Up</span></dt>
+        <dd>
+            <span>{{vm.vote.isUp}}</span>
+        </dd>
+        <dt><span>Dog Photo</span></dt>
+        <dd>
+            <a ui-sref="dog-photo-detail({id:vm.vote.dogPhoto.id})">{{vm.vote.dogPhoto.id}}</a>
+        </dd>
+        <dt><span>Client</span></dt>
+        <dd>
+            <a ui-sref="client-detail({id:vm.vote.client.id})">{{vm.vote.client.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="vote-detail.edit({id:vm.vote.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>

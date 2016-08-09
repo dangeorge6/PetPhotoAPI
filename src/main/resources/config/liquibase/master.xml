@@ -8,8 +8,10 @@
     <include file="classpath:config/liquibase/changelog/20160809173030_added_entity_Dog.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160809173214_added_entity_Breed.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160809173907_added_entity_DogPhoto.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20160809174202_added_entity_Vote.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="classpath:config/liquibase/changelog/20160809173030_added_entity_constraints_Dog.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160809173907_added_entity_constraints_DogPhoto.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20160809174202_added_entity_constraints_Vote.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>
