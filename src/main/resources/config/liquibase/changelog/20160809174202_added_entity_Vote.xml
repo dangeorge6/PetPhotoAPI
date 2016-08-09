@@ -21,8 +21,8 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="is_up" type="bit">
-                <constraints nullable="false" />
+            <column name="up_or_down" type="integer">
+                <constraints nullable="true" />
             </column>
             
             <column name="dog_photo_id" type="bigint">

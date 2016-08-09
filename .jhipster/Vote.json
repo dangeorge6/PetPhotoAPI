@@ -15,11 +15,8 @@
     ],
     "fields": [
         {
-            "fieldName": "isUp",
-            "fieldType": "Boolean",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldName": "upOrDown",
+            "fieldType": "Integer"
         }
     ],
     "changelogDate": "20160809174202",

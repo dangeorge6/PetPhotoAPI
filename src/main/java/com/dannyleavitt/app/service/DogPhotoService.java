@@ -1,7 +1,11 @@
 package com.dannyleavitt.app.service;
 
+import com.dannyleavitt.app.domain.Breed;
+import com.dannyleavitt.app.domain.Dog;
 import com.dannyleavitt.app.domain.DogPhoto;
+
 import com.dannyleavitt.app.repository.DogPhotoRepository;
+import com.dannyleavitt.app.repository.BreedRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +25,33 @@ public class DogPhotoService {
     
     @Inject
     private DogPhotoRepository dogPhotoRepository;
+    
+    @Inject
+    private BreedRepository bRepo;
+    
+    /**
+     *  Get all the dogPhotos by Breed.
+     *  
+     *  @return the list of entities
+     */
+    @Transactional(readOnly = true) 
+    public List<DogPhoto> findAllOfBreed(String breedName) {
+        log.debug("Request to get all DogPhotos");
+        List<DogPhoto> l = null;
+        Breed b = bRepo.findByName(breedName);
+        for(Dog d : b.getDogs()){
+        	for(DogPhoto dp : d.getDogPhotos()){
+        		l.add(dp);
+        	}
+        	
+        }
+        
+        //would have sorted by vote count if had time
+        //l.sort();
+        return l;
+    }
+    
+    
     
     /**
      * Save a dogPhoto.

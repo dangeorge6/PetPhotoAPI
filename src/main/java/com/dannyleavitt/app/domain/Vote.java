@@ -4,7 +4,6 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -22,9 +21,8 @@ public class Vote implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
-    @Column(name = "is_up", nullable = false)
-    private Boolean isUp;
+    @Column(name = "up_or_down")
+    private Integer upOrDown;
 
     @ManyToOne
     private DogPhoto dogPhoto;
@@ -40,12 +38,12 @@ public class Vote implements Serializable {
         this.id = id;
     }
 
-    public Boolean isIsUp() {
-        return isUp;
+    public Integer getUpOrDown() {
+        return upOrDown;
     }
 
-    public void setIsUp(Boolean isUp) {
-        this.isUp = isUp;
+    public void setUpOrDown(Integer upOrDown) {
+        this.upOrDown = upOrDown;
     }
 
     public DogPhoto getDogPhoto() {
@@ -88,7 +86,7 @@ public class Vote implements Serializable {
     public String toString() {
         return "Vote{" +
             "id=" + id +
-            ", isUp='" + isUp + "'" +
+            ", upOrDown='" + upOrDown + "'" +
             '}';
     }
 }

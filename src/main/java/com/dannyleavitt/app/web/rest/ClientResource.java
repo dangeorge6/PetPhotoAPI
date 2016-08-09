@@ -31,6 +31,42 @@ public class ClientResource {
     @Inject
     private ClientService clientService;
     
+    
+    
+   //up vote
+    @RequestMapping(value = "/clients/{clientId}/dog-photo/{dogId}/voteup",
+        method = RequestMethod.PUT,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<Client> upVotePhoto(@PathVariable Long clientId,@PathVariable Long dogId) throws URISyntaxException {
+        log.debug("REST request to Client upVotePhoto : {}", clientId);
+        Client result = clientService.upVotePhoto(clientId,dogId);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert("client", clientId.toString()))
+            .body(result);
+    }
+    
+    //down vote
+    @RequestMapping(value = "/clients/{clientId}/dog-photo/{dogId}/votedown",
+            method = RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        public ResponseEntity<Client> downVotePhoto(@PathVariable Long clientId,@PathVariable Long dogId) throws URISyntaxException {
+            log.debug("REST request to Client upVotePhoto : {}", clientId);
+            Client result = clientService.downVotePhoto(clientId,dogId);
+            return ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityUpdateAlert("client", clientId.toString()))
+                .body(result);
+        }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * POST  /clients : Create a new client.
      *

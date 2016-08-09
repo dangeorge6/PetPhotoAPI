@@ -95,7 +95,7 @@
                     resolve: {
                         entity: function () {
                             return {
-                                isUp: false,
+                                upOrDown: null,
                                 id: null
                             };
                         }

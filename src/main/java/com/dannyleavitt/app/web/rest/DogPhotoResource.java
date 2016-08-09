@@ -31,6 +31,57 @@ public class DogPhotoResource {
     @Inject
     private DogPhotoService dogPhotoService;
     
+    
+    /**
+     * GET  /dog-photos-by-breed/{breedName} : get all the dogPhotos by breed.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of dogPhotos in body
+     */
+    @RequestMapping(value = "/dog-photos-of-breed/{breedName}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public List<DogPhoto> getAllDogPhotos(@PathVariable String breedName) {
+        log.debug("REST request to get all DogPhotos");
+        return dogPhotoService.findAllOfBreed(breedName);
+    }
+    
+    /**
+     * GET  /dog-photos-grouped-for-breed/{breedName} : get all the dogPhotos by breed.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of dogPhotos in body
+     */
+//    @RequestMapping(value = "/dog-photos-grouped-for-breed/{breedName}",
+//        method = RequestMethod.GET,
+//        produces = MediaType.APPLICATION_JSON_VALUE)
+//    @Timed
+//    public List<DogPhoto> getDogPhotosGroupedByBreed(@PathVariable Long breedName) {
+//        log.debug("REST request to get all DogPhotos");
+//        return dogPhotoService.findAllOfBreed(breedName);
+//    }
+    
+    /**
+     * GET  /dog-photos/:id : get the "id" dogPhoto.
+     *
+     * @param id the id of the dogPhoto to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the dogPhoto, or with status 404 (Not Found)
+     */
+    @RequestMapping(value = "/dog-photos/{id}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<DogPhoto> getDogPhoto(@PathVariable Long id) {
+        log.debug("REST request to get DogPhoto : {}", id);
+        DogPhoto dogPhoto = dogPhotoService.findOne(id);
+        return Optional.ofNullable(dogPhoto)
+            .map(result -> new ResponseEntity<>(
+                result,
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    
+    
     /**
      * POST  /dog-photos : Create a new dogPhoto.
      *
@@ -91,26 +142,7 @@ public class DogPhotoResource {
         return dogPhotoService.findAll();
     }
 
-    /**
-     * GET  /dog-photos/:id : get the "id" dogPhoto.
-     *
-     * @param id the id of the dogPhoto to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the dogPhoto, or with status 404 (Not Found)
-     */
-    @RequestMapping(value = "/dog-photos/{id}",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public ResponseEntity<DogPhoto> getDogPhoto(@PathVariable Long id) {
-        log.debug("REST request to get DogPhoto : {}", id);
-        DogPhoto dogPhoto = dogPhotoService.findOne(id);
-        return Optional.ofNullable(dogPhoto)
-            .map(result -> new ResponseEntity<>(
-                result,
-                HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
+   
     /**
      * DELETE  /dog-photos/:id : delete the "id" dogPhoto.
      *

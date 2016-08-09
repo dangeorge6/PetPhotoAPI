@@ -7,7 +7,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.Objects;
 
@@ -32,7 +34,7 @@ public class Client implements Serializable {
     @OneToMany(mappedBy = "client")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Vote> votes = new HashSet<>();
+    private List<Vote> votes = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -50,11 +52,11 @@ public class Client implements Serializable {
         this.username = username;
     }
 
-    public Set<Vote> getVotes() {
+    public List<Vote> getVotes() {
         return votes;
     }
 
-    public void setVotes(Set<Vote> votes) {
+    public void setVotes(List<Vote> votes) {
         this.votes = votes;
     }
 

@@ -1,5 +1,5 @@
 
-<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
 
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
@@ -14,16 +14,10 @@
                     ng-model="vm.vote.id" readonly />
         </div>
         <div class="form-group">
-            <label class="control-label" for="field_isUp">Is Up</label>
-            <input type="checkbox" class="form-control" name="isUp" id="field_isUp"
-                    ng-model="vm.vote.isUp"
+            <label class="control-label" for="field_upOrDown">Up Or Down</label>
+            <input type="number" class="form-control" name="upOrDown" id="field_upOrDown"
+                    ng-model="vm.vote.upOrDown"
                      />
-            <div ng-show="editForm.isUp.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.isUp.$error.required">
-                    This field is required.
-                </p>
-            </div>
         </div>
 
         <div class="form-group">

@@ -11,5 +11,5 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public interface BreedRepository extends JpaRepository<Breed,Long> {
-
+	Breed findByName(String breedName);
 }

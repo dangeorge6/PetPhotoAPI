@@ -43,8 +43,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class VoteResourceIntTest {
 
 
-    private static final Boolean DEFAULT_IS_UP = false;
-    private static final Boolean UPDATED_IS_UP = true;
+    private static final Integer DEFAULT_UP_OR_DOWN = 1;
+    private static final Integer UPDATED_UP_OR_DOWN = 2;
 
     @Inject
     private VoteRepository voteRepository;
@@ -75,7 +75,7 @@ public class VoteResourceIntTest {
     @Before
     public void initTest() {
         vote = new Vote();
-        vote.setIsUp(DEFAULT_IS_UP);
+        vote.setUpOrDown(DEFAULT_UP_OR_DOWN);
     }
 
     @Test
@@ -94,25 +94,7 @@ public class VoteResourceIntTest {
         List<Vote> votes = voteRepository.findAll();
         assertThat(votes).hasSize(databaseSizeBeforeCreate + 1);
         Vote testVote = votes.get(votes.size() - 1);
-        assertThat(testVote.isIsUp()).isEqualTo(DEFAULT_IS_UP);
-    }
-
-    @Test
-    @Transactional
-    public void checkIsUpIsRequired() throws Exception {
-        int databaseSizeBeforeTest = voteRepository.findAll().size();
-        // set the field null
-        vote.setIsUp(null);
-
-        // Create the Vote, which fails.
-
-        restVoteMockMvc.perform(post("/api/votes")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(vote)))
-                .andExpect(status().isBadRequest());
-
-        List<Vote> votes = voteRepository.findAll();
-        assertThat(votes).hasSize(databaseSizeBeforeTest);
+        assertThat(testVote.getUpOrDown()).isEqualTo(DEFAULT_UP_OR_DOWN);
     }
 
     @Test
@@ -126,7 +108,7 @@ public class VoteResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(vote.getId().intValue())))
-                .andExpect(jsonPath("$.[*].isUp").value(hasItem(DEFAULT_IS_UP.booleanValue())));
+                .andExpect(jsonPath("$.[*].upOrDown").value(hasItem(DEFAULT_UP_OR_DOWN)));
     }
 
     @Test
@@ -140,7 +122,7 @@ public class VoteResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(vote.getId().intValue()))
-            .andExpect(jsonPath("$.isUp").value(DEFAULT_IS_UP.booleanValue()));
+            .andExpect(jsonPath("$.upOrDown").value(DEFAULT_UP_OR_DOWN));
     }
 
     @Test
@@ -162,7 +144,7 @@ public class VoteResourceIntTest {
         // Update the vote
         Vote updatedVote = new Vote();
         updatedVote.setId(vote.getId());
-        updatedVote.setIsUp(UPDATED_IS_UP);
+        updatedVote.setUpOrDown(UPDATED_UP_OR_DOWN);
 
         restVoteMockMvc.perform(put("/api/votes")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -173,7 +155,7 @@ public class VoteResourceIntTest {
         List<Vote> votes = voteRepository.findAll();
         assertThat(votes).hasSize(databaseSizeBeforeUpdate);
         Vote testVote = votes.get(votes.size() - 1);
-        assertThat(testVote.isIsUp()).isEqualTo(UPDATED_IS_UP);
+        assertThat(testVote.getUpOrDown()).isEqualTo(UPDATED_UP_OR_DOWN);
     }
 
     @Test

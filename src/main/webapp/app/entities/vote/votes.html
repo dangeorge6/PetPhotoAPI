@@ -19,7 +19,7 @@
             <thead>
                 <tr>
                     <th><span>ID</span></th>
-                    <th><span>Is Up</span></th>
+                    <th><span>Up Or Down</span></th>
                     <th><span>Dog Photo</span></th>
                     <th><span>Client</span></th>
                     <th></th>
@@ -28,7 +28,7 @@
             <tbody>
                 <tr ng-repeat="vote in vm.votes track by vote.id">
                     <td><a ui-sref="vote-detail({id:vote.id})">{{vote.id}}</a></td>
-                    <td>{{vote.isUp}}</td>
+                    <td>{{vote.upOrDown}}</td>
                     <td>
                         <a ui-sref="dog-photo-detail({id:vote.dogPhoto.id})">{{vote.dogPhoto.id}}</a>
                     </td>

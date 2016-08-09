@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="dannyleavitt (generated)" id="1470769469985-1">
+        <createTable tableName="breed">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="breedPK"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="dannyleavitt (generated)" id="1470769469985-2">
+        <createTable tableName="client">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="clientPK"/>
+            </column>
+            <column name="username" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="dannyleavitt (generated)" id="1470769469985-3">
+        <createTable tableName="dog">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="dogPK"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="years_old" type="INT"/>
+            <column name="breed_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="dannyleavitt (generated)" id="1470769469985-4">
+        <createTable tableName="dog_photo">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="dog_photoPK"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="url" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dog_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="dannyleavitt (generated)" id="1470769469985-5">
+        <createTable tableName="vote">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="votePK"/>
+            </column>
+            <column name="up_or_down" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="client_id" type="BIGINT"/>
+            <column name="dog_photo_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="dannyleavitt (generated)" id="1470769469985-6">
+        <addForeignKeyConstraint baseColumnNames="client_id" baseTableName="vote" constraintName="FK_68jbk1wju01bkvo912ovfuolp" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="client"/>
+    </changeSet>
+    <changeSet author="dannyleavitt (generated)" id="1470769469985-7">
+        <addForeignKeyConstraint baseColumnNames="dog_photo_id" baseTableName="vote" constraintName="FK_lu7qbm7gkt1mecesnudwpsorr" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="dog_photo"/>
+    </changeSet>
+    <changeSet author="dannyleavitt (generated)" id="1470769469985-8">
+        <addForeignKeyConstraint baseColumnNames="breed_id" baseTableName="dog" constraintName="FK_pjddiqv8qq696ahjt3bgd8g0c" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="breed"/>
+    </changeSet>
+    <changeSet author="dannyleavitt (generated)" id="1470769469985-9">
+        <addForeignKeyConstraint baseColumnNames="dog_id" baseTableName="dog_photo" constraintName="FK_rhkjx69xmdmth1dtvnxvaopcg" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="dog"/>
+    </changeSet>
+    <changeSet author="dannyleavitt (generated)" id="1470769469985-10">
+        <dropDefaultValue columnDataType="timestamp" columnName="created_date" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="dannyleavitt (generated)" id="1470769469985-11">
+        <dropDefaultValue columnDataType="timestamp" columnName="last_modified_date" tableName="jhi_user"/>
+    </changeSet>
+</databaseChangeLog>
