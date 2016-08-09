@@ -1,0 +1,21 @@
+{
+  "generator-jhipster": {
+    "jhipsterVersion": "3.5.1",
+    "baseName": "APIChallenge",
+    "packageName": "com.dannyleavitt.app",
+    "packageFolder": "com/dannyleavitt/app",
+    "serverPort": "8080",
+    "authenticationType": "session",
+    "hibernateCache": "ehcache",
+    "clusteredHttpSession": "no",
+    "websocket": "no",
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "prodDatabaseType": "mysql",
+    "searchEngine": "no",
+    "buildTool": "maven",
+    "enableSocialSignIn": false,
+    "rememberMeKey": "e774076adb69bea0702a3a3e9d6779dff9d011d6",
+    "enableTranslation": false
+  }
+}
