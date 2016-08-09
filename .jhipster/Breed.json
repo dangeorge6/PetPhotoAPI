@@ -1,0 +1,24 @@
+{
+    "relationships": [
+        {
+            "relationshipName": "dog",
+            "otherEntityName": "dog",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "breed"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20160809173214",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "breed",
+    "pagination": "no"
+}

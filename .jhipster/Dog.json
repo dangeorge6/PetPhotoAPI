@@ -1,0 +1,34 @@
+{
+    "relationships": [
+        {
+            "relationshipName": "breed",
+            "otherEntityName": "breed",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "dogPhoto",
+            "otherEntityName": "dogPhoto",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "dog"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "years_old",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20160809173030",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "dog",
+    "pagination": "no"
+}
