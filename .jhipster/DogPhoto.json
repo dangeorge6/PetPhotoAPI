@@ -1,0 +1,34 @@
+{
+    "relationships": [
+        {
+            "relationshipName": "dog",
+            "otherEntityName": "dog",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "vote",
+            "otherEntityName": "vote",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "dogPhoto"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "url",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20160809173907",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "dog_photo",
+    "pagination": "no"
+}

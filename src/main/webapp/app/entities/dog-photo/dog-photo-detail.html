@@ -1,0 +1,31 @@
+
+<div>
+    <h2><span>Dog Photo</span> {{vm.dogPhoto.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Url</span></dt>
+        <dd>
+            <span>{{vm.dogPhoto.url}}</span>
+        </dd>
+        <dt><span>Description</span></dt>
+        <dd>
+            <span>{{vm.dogPhoto.description}}</span>
+        </dd>
+        <dt><span>Dog</span></dt>
+        <dd>
+            <a ui-sref="dog-detail({id:vm.dogPhoto.dog.id})">{{vm.dogPhoto.dog.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="dog-photo-detail.edit({id:vm.dogPhoto.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>
