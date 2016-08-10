@@ -17,6 +17,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -41,24 +42,40 @@ public class DogPhotoResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public List<DogPhoto> getAllDogPhotos(@PathVariable String breedName) {
+    public ResponseEntity<List<DogPhoto>> getAllDogPhotos(@PathVariable String breedName) {
         log.debug("REST request to get all DogPhotos");
-        return dogPhotoService.findAllOfBreed(breedName);
+        List<DogPhoto> do = dogPhotoService.findAllOfBreed(breedName);
+        return Optional.ofNullable(l)
+                .map(result -> new ResponseEntity<>(
+                    result,
+                    HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
     
+    //OOLLLD
+//    public List<DogPhoto> getAllDogPhotos(@PathVariable String breedName) {
+//        log.debug("REST request to get all DogPhotos");
+//        return dogPhotoService.findAllOfBreed(breedName);
+//    }
+//    
     /**
      * GET  /dog-photos-grouped-for-breed/{breedName} : get all the dogPhotos by breed.
      *
      * @return the ResponseEntity with status 200 (OK) and the list of dogPhotos in body
      */
-//    @RequestMapping(value = "/dog-photos-grouped-for-breed/{breedName}",
-//        method = RequestMethod.GET,
-//        produces = MediaType.APPLICATION_JSON_VALUE)
-//    @Timed
-//    public List<DogPhoto> getDogPhotosGroupedByBreed(@PathVariable Long breedName) {
-//        log.debug("REST request to get all DogPhotos");
-//        return dogPhotoService.findAllOfBreed(breedName);
-//    }
+    @RequestMapping(value = "/dog-photos-grouped-for-breed/{breedName}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<Map<String,List<DogPhoto>>> getDogPhotosGroupedByBreed(@PathVariable Long breedName) {
+        log.debug("REST request to get all DogPhotos");
+        Map<String,List<DogPhoto>> dpByBreed = dogPhotoService.findAllGroupedByBreed(breedName);
+        return Optional.ofNullable(dpByBreed)
+                .map(result -> new ResponseEntity<>(
+                        result,
+                        HttpStatus.OK))
+                    .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
     
     /**
      * GET  /dog-photos/:id : get the "id" dogPhoto.
