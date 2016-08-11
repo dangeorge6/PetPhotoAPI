@@ -31,10 +31,10 @@ public class Client implements Serializable {
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", cascade=CascadeType.ALL)
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private List<Vote> votes = new ArrayList<>();
+    private Set<Vote> votes = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -52,11 +52,11 @@ public class Client implements Serializable {
         this.username = username;
     }
 
-    public List<Vote> getVotes() {
+    public Set<Vote> getVotes() {
         return votes;
     }
 
-    public void setVotes(List<Vote> votes) {
+    public void setVotes(Set<Vote> votes) {
         this.votes = votes;
     }
 

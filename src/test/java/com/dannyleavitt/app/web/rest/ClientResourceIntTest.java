@@ -2,7 +2,11 @@ package com.dannyleavitt.app.web.rest;
 
 import com.dannyleavitt.app.ApiChallengeApp;
 import com.dannyleavitt.app.domain.Client;
+import com.dannyleavitt.app.domain.DogPhoto;
+import com.dannyleavitt.app.domain.Vote;
 import com.dannyleavitt.app.repository.ClientRepository;
+import com.dannyleavitt.app.repository.DogPhotoRepository;
+import com.dannyleavitt.app.repository.VoteRepository;
 import com.dannyleavitt.app.service.ClientService;
 
 import org.junit.Before;
@@ -49,6 +53,12 @@ public class ClientResourceIntTest {
     private ClientRepository clientRepository;
 
     @Inject
+    private DogPhotoRepository dpRepo;
+    
+    @Inject
+    private VoteRepository vRepo;
+    
+    @Inject
     private ClientService clientService;
 
     @Inject
@@ -77,6 +87,31 @@ public class ClientResourceIntTest {
         client.setUsername(DEFAULT_USERNAME);
     }
 
+    
+    @Test
+    @Transactional
+    public void downvoteForPhotoByClientShouldUpdateInDB() throws Exception {
+        // Initialize the database
+        clientService.save(client);
+        DogPhoto dp = new DogPhoto();
+        dp.setUrl("testurl");
+        DogPhoto dpResult = dpRepo.save(dp);
+
+        restClientMockMvc.perform(put("/api/clients/"+client.getId()+"/dog-photo/"+dp.getId()+"/downvote")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk());
+
+        //Fetch Vote to see if it made it in
+       Vote v = vRepo.
+        
+        
+        List<Client> clients = clientRepository.findAll();
+        assertThat(clients).hasSize(databaseSizeBeforeUpdate);
+        Client testClient = clients.get(clients.size() - 1);
+        assertThat(testClient.getUsername()).isEqualTo(UPDATED_USERNAME);
+    }
+    
+    
     @Test
     @Transactional
     public void createClient() throws Exception {

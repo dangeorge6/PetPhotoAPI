@@ -32,19 +32,20 @@ public class ClientService {
     @Inject
     private VoteRepository vRepo;
     
-    public Client upVotePhoto(Long clientId, Long dogPhotoId) {
+    public Vote upVotePhoto(Long clientId, Long dogPhotoId) {
     	Vote v = null;
 		Client client = clientRepository.findOne(clientId);
 		if(client != null){
 			DogPhoto dp = dpRepo.findOne(dogPhotoId);
 			if(dp != null){
-				List<Vote> clientsVote = client.getVotes();
+				v = vRepo.findByDogPhotoAndClient(dp,client);
 				
-				if(clientsVote.size()>0){
+				
+				if(v != null){
 					//there is already a vote 
-					v = clientsVote.get(0);
 					v.setUpOrDown(1);
 				} else {
+					v = new Vote();
 					v.setUpOrDown(1);
 					v.setClient(client);
 					v.setDogPhoto(dp);
@@ -52,22 +53,23 @@ public class ClientService {
 				vRepo.save(v);
 			}
 		}
-		return client;
+	
+		return v;
 	}
     
-    public Client downVotePhoto(Long clientId, Long dogPhotoId) {
+    public Vote downVotePhoto(Long clientId, Long dogPhotoId) {
     	Vote v = null;
 		Client client = clientRepository.findOne(clientId);
 		if(client != null){
 			DogPhoto dp = dpRepo.findOne(dogPhotoId);
 			if(dp != null){
-				List<Vote> clientsVote = client.getVotes();
+				 v = vRepo.findByDogPhotoAndClient(dp,client);
 				
-				if(clientsVote.size()>0){
+				if(v != null){
 					//there is already a vote 
-					v = clientsVote.get(0);
 					v.setUpOrDown(-1);
 				} else {
+					v = new Vote();
 					v.setUpOrDown(-1);
 					v.setClient(client);
 					v.setDogPhoto(dp);
@@ -75,7 +77,8 @@ public class ClientService {
 				vRepo.save(v);
 			}
 		}
-		return client;
+	
+		return v;
 	}
     
       

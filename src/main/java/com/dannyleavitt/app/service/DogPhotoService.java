@@ -12,7 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Service Implementation for managing DogPhoto.
@@ -35,21 +39,44 @@ public class DogPhotoService {
      *  @return the list of entities
      */
     @Transactional(readOnly = true) 
-    public List<DogPhoto> findAllOfBreed(String breedName) {
-        log.debug("Request to get all DogPhotos");
-        List<DogPhoto> l = null;
-        Breed b = bRepo.findByName(breedName);
-        for(Dog d : b.getDogs()){
-        	for(DogPhoto dp : d.getDogPhotos()){
-        		l.add(dp);
-        	}  	
-        }
-        
-        //would have sorted by vote count if had time
-        //l.sort();
+    public List findAllOfBreed(String breedName) {
+        List l = dogPhotoRepository.findAllOfBreed(breedName);
+//    	log.debug("Request to FindAllOfBreed Service");
+//        List<DogPhoto> l = null;
+//        Breed b = bRepo.findByName(breedName);
+//        for(Dog d : b.getDogs()){
+//        	for(DogPhoto dp : d.getDogPhotos()){
+//        		l.add(dp);
+//        	}  	
+//        }
+//        
+//        //would have sorted by vote count if had time
+//        //l.sort();
         return l;
     }
     
+    
+    /**
+     *  Get all the dogPhotos by Breed.
+     *  
+     *  @return the list of entities
+     */
+//    @Transactional(readOnly = true) 
+//    public Map<String,List<DogPhoto>> findAllGroupedByBreed(String breedName) {
+//    	Map<String,List<DogPhoto>> dogObject = new HashMap<String,List<DogPhoto>>();
+//    	List<Breed> breeds = bRepo.findAll();
+//    	
+//    	for(Breed b:breeds){
+//    		List<DogPhoto> dpList = new ArrayList<DogPhoto>();
+//    		for(Dog d: b.getDogs()){
+//    			dpList.add(d.getDogPhotos());
+//    		}
+//    		dogObject.put(b.getName(), b.getDogs())
+//    	}
+//    	List<DogPhoto> l = dogPhotoRepository.findAllOfBreed(breedName);
+//        
+//        return dogObject;
+//    }
     
     
     /**

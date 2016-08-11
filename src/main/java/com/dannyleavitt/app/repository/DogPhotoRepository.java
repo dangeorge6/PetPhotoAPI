@@ -5,6 +5,7 @@ import com.dannyleavitt.app.domain.DogPhoto;
 import org.springframework.data.jpa.repository.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Spring Data JPA repository for the DogPhoto entity.
@@ -18,14 +19,14 @@ public interface DogPhotoRepository extends JpaRepository<DogPhoto,Long> {
 //	Map<String,List<DogPhoto>>
 	
 	//find all for a particular breed
-	@Query("select s.id, SUM(v.upOrDown) as numVotes "
+	@Query("select new map(s.id as id,s.url as url,s.description as description,s.dog.name as dog_name,s.dog.years_old as years_old,s.dog.breed.name as breed_name, SUM(v.upOrDown) as voteTotal) "
 			+" from DogPhoto s "
 			+" LEFT JOIN s.votes v"
-			+" where s.dog.breed.name = ?1"
+			+" where LOWER(s.dog.breed.name) = LOWER(?1)"
 			+" Group by s.id"
-			+" ORDER BY numVotes"
+			+" ORDER BY voteTotal DESC"
 			)
-    List<DogPhoto> findAllOfBreed(String breedName);
+	List<Map<String,String>> findAllOfBreed(String breedName);
 }
 
 

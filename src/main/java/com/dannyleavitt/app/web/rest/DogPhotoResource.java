@@ -42,9 +42,9 @@ public class DogPhotoResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<DogPhoto>> getAllDogPhotos(@PathVariable String breedName) {
+    public ResponseEntity<List> getAllDogPhotos(@PathVariable String breedName) {
         log.debug("REST request to get all DogPhotos");
-        List<DogPhoto> dp = dogPhotoService.findAllOfBreed(breedName);
+        List dp = dogPhotoService.findAllOfBreed(breedName);
         return Optional.ofNullable(dp)
                 .map(result -> new ResponseEntity<>(
                     result,
@@ -68,7 +68,7 @@ public class DogPhotoResource {
 //        produces = MediaType.APPLICATION_JSON_VALUE)
 //    @Timed
 //    public ResponseEntity<Map<String,List<DogPhoto>>> getDogPhotosGroupedByBreed(@PathVariable Long breedName) {
-//        log.debug("REST request to get all DogPhotos");
+//        log.debug("REST request to get all DogPhotos Grouped By Breed");
 //        Map<String,List<DogPhoto>> dpByBreed = dogPhotoService.findAllGroupedByBreed(breedName);
 //        return Optional.ofNullable(dpByBreed)
 //                .map(result -> new ResponseEntity<>(

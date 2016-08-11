@@ -2,6 +2,7 @@ package com.dannyleavitt.app.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.dannyleavitt.app.domain.Client;
+import com.dannyleavitt.app.domain.Vote;
 import com.dannyleavitt.app.service.ClientService;
 import com.dannyleavitt.app.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
@@ -38,12 +39,14 @@ public class ClientResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Client> upVotePhoto(@PathVariable Long clientId,@PathVariable Long dogId) throws URISyntaxException {
+    public ResponseEntity<Vote> upVotePhoto(@PathVariable Long clientId,@PathVariable Long dogId) throws URISyntaxException {
         log.debug("REST request to Client upVotePhoto : {}", clientId);
-        Client result = clientService.upVotePhoto(clientId,dogId);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("client", clientId.toString()))
-            .body(result);
+        Vote result = clientService.upVotePhoto(clientId,dogId);
+        return Optional.ofNullable(result)
+                .map(u -> new ResponseEntity<>(
+                        u,
+                        HttpStatus.OK))
+                    .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
     
     //down vote
@@ -51,12 +54,14 @@ public class ClientResource {
             method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
         @Timed
-        public ResponseEntity<Client> downVotePhoto(@PathVariable Long clientId,@PathVariable Long dogId) throws URISyntaxException {
+        public ResponseEntity<Vote> downVotePhoto(@PathVariable Long clientId,@PathVariable Long dogId) throws URISyntaxException {
             log.debug("REST request to Client upVotePhoto : {}", clientId);
-            Client result = clientService.downVotePhoto(clientId,dogId);
-            return ResponseEntity.ok()
-                .headers(HeaderUtil.createEntityUpdateAlert("client", clientId.toString()))
-                .body(result);
+            Vote result = clientService.downVotePhoto(clientId,dogId);
+            return Optional.ofNullable(result)
+                    .map(u -> new ResponseEntity<>(
+                            u,
+                            HttpStatus.OK))
+                        .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
         }
     
     
