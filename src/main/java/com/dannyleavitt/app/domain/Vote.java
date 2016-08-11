@@ -11,6 +11,7 @@ import java.util.Objects;
  * A Vote.
  */
 @Entity
+
 @Table(name = "vote")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Vote implements Serializable {
