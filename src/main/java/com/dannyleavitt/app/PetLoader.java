@@ -119,6 +119,12 @@ public class PetLoader implements InitializingBean {
             	
             	dp.setUrl(line);
             	
+            	//get a random int between -1 and 1 for vote
+         	   Random random = new Random();
+        	   int min = -1;
+        	   int max = 1;
+        	   int randomNumber = random.nextInt(max - min) + min;
+            	
                if(i<3){
             	   //put 3 in dog 1
             	   dp.setDog(d1);
@@ -126,10 +132,7 @@ public class PetLoader implements InitializingBean {
             	   
             	   dp.setDescription("sweet photo of " + d1.getName());
             	   //generate a random vote
-            	   Random random = new Random();
-            	   int min = -1;
-            	   int max = 1;
-            	   int randomNumber = random.nextInt(max - min) + min;
+            
             	   Vote v = new Vote(); Vote v2 = new Vote();
             	   v.setClient(c1); v.setDogPhoto(dp); v.setUpOrDown(1);
             	   v2.setClient(c2); v2.setDogPhoto(dp); v2.setUpOrDown(randomNumber);
@@ -143,7 +146,7 @@ public class PetLoader implements InitializingBean {
             	   dp.setDescription("sweet photo of " + d2.getName());
             	   Vote v3 = new Vote(); Vote v4 = new Vote();
             	   v3.setClient(c1); v3.setDogPhoto(dp); v3.setUpOrDown(1);
-            	   v4.setClient(c2); v4.setDogPhoto(dp); v4.setUpOrDown(1);
+            	   v4.setClient(c2); v4.setDogPhoto(dp); v4.setUpOrDown(randomNumber);
             	   dp.getVotes().add(v3);
             	   dp.getVotes().add(v4);
                }

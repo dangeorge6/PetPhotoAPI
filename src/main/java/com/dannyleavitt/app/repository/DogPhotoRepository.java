@@ -19,7 +19,7 @@ public interface DogPhotoRepository extends JpaRepository<DogPhoto,Long> {
 				+" from DogPhoto s "
 				+" LEFT JOIN s.votes v"
 				+" Group by s.id"
-				+" ORDER BY s.dog.breed.name,voteTotal DESC"
+				+" ORDER BY s.dog.breed.name,voteTotal DESC,dog_name"
 				)
 		List<Map<String,String>> findAllOrderedByBreed();
 	
