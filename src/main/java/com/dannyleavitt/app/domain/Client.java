@@ -28,7 +28,7 @@ public class Client implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "username", nullable = false)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @OneToMany(mappedBy = "client")

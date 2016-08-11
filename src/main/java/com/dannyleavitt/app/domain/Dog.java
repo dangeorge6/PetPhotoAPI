@@ -35,7 +35,7 @@ public class Dog implements Serializable {
     @ManyToOne
     private Breed breed;
 
-    @OneToMany(mappedBy = "dog")
+    @OneToMany(mappedBy = "dog", cascade = CascadeType.PERSIST)
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<DogPhoto> dogPhotos = new HashSet<>();

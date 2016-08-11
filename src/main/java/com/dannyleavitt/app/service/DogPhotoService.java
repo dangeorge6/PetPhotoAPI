@@ -42,8 +42,7 @@ public class DogPhotoService {
         for(Dog d : b.getDogs()){
         	for(DogPhoto dp : d.getDogPhotos()){
         		l.add(dp);
-        	}
-        	
+        	}  	
         }
         
         //would have sorted by vote count if had time

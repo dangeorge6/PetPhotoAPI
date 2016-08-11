@@ -24,12 +24,12 @@ public class Breed implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
+    
     @NotNull
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "breed")
+    @OneToMany(mappedBy = "breed", cascade = CascadeType.PERSIST)
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Dog> dogs = new HashSet<>();
