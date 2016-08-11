@@ -61,22 +61,31 @@ public class DogPhotoService {
      *  
      *  @return the list of entities
      */
-//    @Transactional(readOnly = true) 
-//    public Map<String,List<DogPhoto>> findAllGroupedByBreed(String breedName) {
-//    	Map<String,List<DogPhoto>> dogObject = new HashMap<String,List<DogPhoto>>();
-//    	List<Breed> breeds = bRepo.findAll();
-//    	
-//    	for(Breed b:breeds){
-//    		List<DogPhoto> dpList = new ArrayList<DogPhoto>();
-//    		for(Dog d: b.getDogs()){
-//    			dpList.add(d.getDogPhotos());
-//    		}
-//    		dogObject.put(b.getName(), b.getDogs())
-//    	}
-//    	List<DogPhoto> l = dogPhotoRepository.findAllOfBreed(breedName);
-//        
-//        return dogObject;
-//    }
+    @Transactional(readOnly = true) 
+    public Map<String,List<Map<String,String>>> findAllGroupedByBreed() {
+    	Map<String,List<Map<String,String>>> dogObject = new HashMap();
+    	List<Map<String,String>> l = dogPhotoRepository.findAllOrderedByBreed();
+        if(l.size()>0){
+        	//if rows returned
+        	//initialize breedname
+        	String breedName = l.get(0).get("breed_name");
+        	dogObject.put(breedName, new ArrayList());
+        	
+        	for(Map<String,String> item : l){
+        		//each row
+        		if(!breedName.equals(item.get("breed_name"))){
+        			//new breed, add it to the map, change the breed
+        			breedName = item.get("breed_name");
+        			dogObject.put(breedName, new ArrayList());	
+        		}
+        		//delete breedname from photo row since reduntant
+        		item.remove("breed_name");
+        		//add photo row to that breed
+        		dogObject.get(breedName).add(item);			
+        	}
+        }
+        return dogObject;
+    }
     
     
     /**

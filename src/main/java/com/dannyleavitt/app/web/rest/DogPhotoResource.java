@@ -42,7 +42,7 @@ public class DogPhotoResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List> getAllDogPhotos(@PathVariable String breedName) {
+    public ResponseEntity<List> getAllDogPhotosOfBreed(@PathVariable String breedName) {
         log.debug("REST request to get all DogPhotos");
         List dp = dogPhotoService.findAllOfBreed(breedName);
         return Optional.ofNullable(dp)
@@ -63,19 +63,19 @@ public class DogPhotoResource {
      *
      * @return the ResponseEntity with status 200 (OK) and the list of dogPhotos in body
      */
-//    @RequestMapping(value = "/dog-photos-grouped-for-breed/{breedName}",
-//        method = RequestMethod.GET,
-//        produces = MediaType.APPLICATION_JSON_VALUE)
-//    @Timed
-//    public ResponseEntity<Map<String,List<DogPhoto>>> getDogPhotosGroupedByBreed(@PathVariable Long breedName) {
-//        log.debug("REST request to get all DogPhotos Grouped By Breed");
-//        Map<String,List<DogPhoto>> dpByBreed = dogPhotoService.findAllGroupedByBreed(breedName);
-//        return Optional.ofNullable(dpByBreed)
-//                .map(result -> new ResponseEntity<>(
-//                        result,
-//                        HttpStatus.OK))
-//                    .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-//    }
+    @RequestMapping(value = "/dog-photos-grouped-by-breed",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<Map> getDogPhotosGroupedByBreed() {
+        log.debug("REST request to get all DogPhotos Grouped By Breed");
+        Map dpByBreed = dogPhotoService.findAllGroupedByBreed();
+        return Optional.ofNullable(dpByBreed)
+                .map(result -> new ResponseEntity<>(
+                        result,
+                        HttpStatus.OK))
+                    .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
     
     /**
      * GET  /dog-photos/:id : get the "id" dogPhoto.

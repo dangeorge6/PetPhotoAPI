@@ -18,6 +18,7 @@ import javax.sql.DataSource;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Random;
 
 /**
  * Loads stored objects from the file system and builds up
@@ -124,9 +125,14 @@ public class PetLoader implements InitializingBean {
             	   d1.getDogPhotos().add(dp);
             	   
             	   dp.setDescription("sweet photo of " + d1.getName());
+            	   //generate a random vote
+            	   Random random = new Random();
+            	   int min = -1;
+            	   int max = 1;
+            	   int randomNumber = random.nextInt(max - min) + min;
             	   Vote v = new Vote(); Vote v2 = new Vote();
             	   v.setClient(c1); v.setDogPhoto(dp); v.setUpOrDown(1);
-            	   v2.setClient(c2); v2.setDogPhoto(dp); v2.setUpOrDown(-1);
+            	   v2.setClient(c2); v2.setDogPhoto(dp); v2.setUpOrDown(randomNumber);
             	   dp.getVotes().add(v);
             	   dp.getVotes().add(v2);
                } else {
