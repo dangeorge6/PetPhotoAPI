@@ -97,20 +97,33 @@ public class ClientResourceIntTest {
         dp.setUrl("testurl");
         DogPhoto dpResult = dpRepo.save(dp);
 
-        restClientMockMvc.perform(put("/api/clients/"+client.getId()+"/dog-photo/"+dp.getId()+"/downvote")
+        restClientMockMvc.perform(put("/api/clients/"+client.getId()+"/dog-photo/"+dp.getId()+"/votedown")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
 
         //Fetch Vote to see if it made it in
-       Vote v = vRepo.
-        
-        
-        List<Client> clients = clientRepository.findAll();
-        assertThat(clients).hasSize(databaseSizeBeforeUpdate);
-        Client testClient = clients.get(clients.size() - 1);
-        assertThat(testClient.getUsername()).isEqualTo(UPDATED_USERNAME);
+       Vote v = vRepo.findByDogPhotoAndClient(dpResult, client);
+        assertThat(v.getUpOrDown()).isEqualTo(-1);
     }
     
+    
+    @Test
+    @Transactional
+    public void downupForPhotoByClientShouldUpdateInDB() throws Exception {
+        // Initialize the database
+        clientService.save(client);
+        DogPhoto dp = new DogPhoto();
+        dp.setUrl("testurl");
+        DogPhoto dpResult = dpRepo.save(dp);
+
+        restClientMockMvc.perform(put("/api/clients/"+client.getId()+"/dog-photo/"+dp.getId()+"/voteup")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk());
+
+        //Fetch Vote to see if it made it in
+       Vote v = vRepo.findByDogPhotoAndClient(dpResult, client);
+        assertThat(v.getUpOrDown()).isEqualTo(1);
+    }
     
     @Test
     @Transactional
